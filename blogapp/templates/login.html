@@ -1,0 +1,72 @@
+{% extends "auth_base.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block title %}
+<title>Log In</title>
+{% endblock title %}
+
+
+{% block content %}
+<div class="limiter">
+
+    <div class="container-login100"
+        style="background-color: black; background-image: url({% static 'img/login.jpg' %});">
+        <div class="wrap-login100 p-t-30 p-b-50">
+            <span class="login100-form-title p-b-41">
+                Account Login
+            </span>
+            
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor %}
+            {% endif %}
+
+            <form class="login100-form validate-form p-b-33 p-t-5" method="POST" action="{% url 'login' %}" novalidate>
+                {% csrf_token %}
+
+                <div class="wrap-input100 ">
+                    <div class="input100 pl-4">
+                        {{form.username.label_tag }} <br>
+                        {{form.username}}
+                    </div>
+                </div>
+
+                <div class="wrap-input100 ">
+                    <div class="input100 pl-4">
+                        {{form.password.label}} <br>
+                        <br>
+                        {{form.password}}
+                    </div>
+                </div>
+
+
+                <div class="container-login100-form-btn m-t-32">
+                    <button class="login100-form-btn" type="submit">
+                        Log In
+                    </button>
+                </div>
+
+                <div class="container-login100-form-btn m-t-15">
+                    Don't have an Account?
+                    <a href="/signup/" style="color: darkturquoise;">&nbsp; Create here</a>
+                    <hr>
+                    Forgot Your Password?
+                    <a href="/reset_password/" style="color: darkturquoise;">&nbsp; Click here</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

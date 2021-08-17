@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %} <title>Index</title> {% endblock title %}
+
+{% block content %}
+
+<!-- start banner Area -->
+<section class="banner-area relative" id="home" data-parallax="scroll"
+    data-image-src="{% static 'img/header-bg.jpg' %}">
+    <div class="overlay-bg overlay"></div>
+    <div class="container">
+        <div class="row fullscreen">
+            <div class="banner-content d-flex align-items-center col-lg-12 col-md-12">
+                <h1>
+                    A Discount Toner Cartridge <br>
+                    Is Better Than Ever.
+                </h1>
+            </div>
+            <div class="head-bottom-meta d-flex justify-content-between align-items-end col-lg-12">
+                <div class="col-lg-6 flex-row d-flex meta-left no-padding">
+                    <!-- <p><span class="lnr lnr-heart"></span> 15 Likes</p>
+                    <p><span class="lnr lnr-bubble"></span> 02 Comments</p> -->
+                </div>
+                <div class="col-lg-6 flex-row d-flex meta-right no-padding justify-content-end">
+                    <div class="user-meta">
+                        <!-- <h4 class="text-white">Mark wiens</h4>
+                        <p>12 Dec, 2017 11:21 am</p> -->
+                    </div>
+                    <!-- <img class="img-fluid user-img" src="{% static 'img/user.jpg' %}" alt=""> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->
+
+
+<!-- Start category Area -->
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container emp-profile">
+    <table class="table">
+        <thead>
+            <h4 class="alert alert-info">Please make sure for this page , use desktop version</h4>
+          <tr>
+            <th scope="col">Sr No.</th>
+            <th scope="col">Title</th>
+            <th scope="col">Catagory</th>
+            <th scope="col">Updated On</th>
+            <th scope="col">Created On</th>
+            <th scope="col">Status</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for blog in blogs %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td><a href="{% url 'blog_detail' slug=blog.slug %}" style="color: black;">{{blog.title}}</a></td>
+            <td>{{blog.catagory}}</td>
+            <td>{{blog.updated_on}}</td>
+            <td>{{blog.created_on}}</td>
+            {% if blog.status == 1 %}
+                <td>Publish</td>
+            {% else %}
+                <td>Draft</td>
+            {% endif %}
+            <td >
+                <a href="{% url 'editblog' blog.slug %}" title="Edit">✏️</a> &nbsp;
+            </td>
+            <td>
+                <a href="/deleteblog/{{blog.id}}">🗑️</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+
+<!-- End category Area -->
+
+
+
+{% endblock content %}
+
+{% block form %}
+<form action="{% url 'index' %}" method="POST" novalidate> 
+	{% csrf_token %}
+	<div class="form-group row" style="width: 100%">
+		<div class="col-lg-8 col-md-12">
+			<input hidden name="email" placeholder="Enter Email" required="" type="email">
+			{{sub_form.sub_email.label}}
+			{{sub_form.sub_email}}
+		</div>
+		<div class="col-lg-4 col-md-12">
+			<br>
+			<button class="nw-btn primary-btn" type="submit"> Subscribe<span class="lnr lnr-arrow-right"></span></button>
+		</div>
+	</div>
+</form>
+{% endblock form %}

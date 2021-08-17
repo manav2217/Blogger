@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %} <title>Post-Detail</title>{% endblock title %}
+
+{% block content %}
+
+<!-- Start top-section Area -->
+<section class="top-section-area section-gap">
+    <div class="container">
+        <div class="row justify-content-between align-items-center d-flex">
+            <div class="col-lg-8 top-left">
+                <h1 class="text-white mb-20">Post Details</h1>
+                <ul>
+                    <!-- <li><a href="index.html">Home</a><span class="lnr lnr-arrow-right"></span></li>
+                    <li><a href="category.html">Category</a><span class="lnr lnr-arrow-right"></span></li>
+                    <li><a href="single.html">Fashion</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End top-section Area -->
+
+
+<!-- Start post Area -->
+<div class="post-wrapper pt-100">
+    <!-- Start post Area -->
+    <section class="post-area">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="single-page-post">
+                        <img class="img-fluid" src="{{blog.image.url}}" alt="image">
+                        <div class="top-wrapper ">
+                            <div class="row d-flex justify-content-between">
+                                <h2 class="col-lg-8 col-md-12 text-uppercase">
+                                    {{blog.title}}
+                                </h2>
+                                <div class="col-lg-4 col-md-12 right-side d-flex justify-content-end">
+                                    <div class="desc">
+                                        <h2 class="text-uppercase">{{blog.author}}</h2>
+                                        <h3>{{blog.updated_on}}</h3>
+                                    </div>
+                                    <div class="user-img">
+                                        <img src="img/user.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tags">
+                            <ul>
+                                <!-- <li><a href="#">lifestyle</a></li>
+                                <li><a href="#">Art</a></li>
+                                <li><a href="#">Technology</a></li>
+                                <li><a href="#">Fashion</a></li> -->
+                            </ul>
+                        </div>
+                        <div class="single-post-content">
+                            <p>{{blog.content|safe}}</p>
+
+                        </div>
+                        <div class="bottom-wrapper">
+                            <div class="row">
+                                
+                                <div class="col-lg-4 single-b-wrap col-md-12">
+                                    {% with comments.count as total_comments %}
+                                    <i class="fa fa-comment-o" aria-hidden="true"></i> {{total_comments}}{% endwith %}
+                                </div>
+                                <div class="col-lg-4 single-b-wrap col-md-12">
+                                    <ul class="social-icons">
+                                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Start comment-sec Area -->
+                        <section class="comment-sec-area pt-80 pb-80">
+                            <div class="container">
+                                <div class="row flex-column">
+                                    {% for comment in comments %}
+                                    <div class="comment-list">
+                                        <div class="single-comment justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex">
+                                                <div class="thumb">
+                                                    <img src="img/asset/c1.jpg" alt="">
+                                                </div>
+                                                <div class="desc">
+                                                    <h5><a href="#">{{comment.user.username}}</a></h5>
+                                                    <p class="date">{{comment.created_on}}</p>
+                                                    <p class="comment">
+                                                        {{comment.message|linebreaks}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        </section>
+                        <!-- End comment-sec Area -->
+
+                        <!-- Start commentform Area -->
+                        <section class="commentform-area  pb-120 pt-80 mb-100">
+                            <div class="container">
+                                <h5 class="text-uppercas pb-50">Leave a Comment</h5>
+                                <div class="row flex-row d-flex">
+                                    <form method="POST">
+                                        <div class="row flex-row d-flex">
+                                            <div class="col-lg-6">
+                                                {{comment_form.as_p|safe}}
+                                                {% csrf_token %}
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <button class="primary-btn mt-20" type="submit">Comment</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </section>
+                        <!-- End commentform Area -->
+
+                    </div>
+                </div>
+                <!-- <div class="col-lg-4 sidebar-area ">
+                    <div class="single_widget search_widget">
+                        <div id="imaginary_container">
+                            <div class="input-group stylish-input-group">
+                                <input type="text" class="form-control" placeholder="Search">
+                                <span class="input-group-addon">
+                                    <button type="submit">
+                                        <span class="lnr lnr-magnifier"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="single_widget about_widget">
+                        <img src="img/asset/s-img.jpg" alt="">
+                        <h2 class="text-uppercase">Adele Gonzalez</h2>
+                        <p>
+                            MCSE boot camps have its supporters and
+                            its detractors. Some people do not understand why you should have to spend money
+                        </p>
+                        <div class="social-link">
+                            <a href="#"><button class="btn"><i class="fa fa-facebook" aria-hidden="true"></i>
+                                    Like</button></a>
+                            <a href="#"><button class="btn"><i class="fa fa-twitter" aria-hidden="true"></i>
+                                    follow</button></a>
+                        </div>
+                    </div>
+                    <div class="single_widget cat_widget">
+                        <h4 class="text-uppercase pb-20">post categories</h4>
+                        <ul>
+                            <li>
+                                <a href="#">Technology <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Lifestyle <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Fashion <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Art <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Food <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Architecture <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Adventure <span>37</span></a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <div class="single_widget cat_widget">
+                        <h4 class="text-uppercase pb-20">post archive</h4>
+                        <ul>
+                            <li>
+                                <a href="#">Dec'17 <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Nov'17 <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Oct'17 <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Sept'17 <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Aug'17 <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Jul'17 <span>37</span></a>
+                            </li>
+                            <li>
+                                <a href="#">Jun'17 <span>37</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="single_widget tag_widget">
+                        <h4 class="text-uppercase pb-20">Tag Clouds</h4>
+                        <ul>
+                            <li><a href="#">Lifestyle</a></li>
+                            <li><a href="#">Art</a></li>
+                            <li><a href="#">Adventure</a></li>
+                            <li><a href="#">Food</a></li>
+                            <li><a href="#">Technology</a></li>
+                            <li><a href="#">Fashion</a></li>
+                            <li><a href="#">Adventure</a></li>
+                            <li><a href="#">Food</a></li>
+                            <li><a href="#">Technology</a></li>
+                        </ul>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+    <!-- End post Area -->
+</div>
+<!-- End post Area -->
+
+{% endblock content %}
+
+{% block form %}
+<form action="{% url 'index' %}" method="POST" novalidate> 
+	{% csrf_token %}
+	<div class="form-group row" style="width: 100%">
+		<div class="col-lg-8 col-md-12">
+			<input hidden name="email" placeholder="Enter Email" required="" type="email">
+			{{sub_form.sub_email.label}}
+			{{sub_form.sub_email}}
+		</div>
+		<div class="col-lg-4 col-md-12">
+			<br>
+			<button class="nw-btn primary-btn" type="submit"> Subscribe<span class="lnr lnr-arrow-right"></span></button>
+		</div>
+	</div>
+</form>
+{% endblock form %}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+{% load static %}
+
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'img/fav.png' %}">
+    <!-- Author Meta -->
+    <meta name="author" content="colorlib">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    {% block title %}
+    {% endblock title %}
+
+
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+
+    <!--
+        CSS
+        ============================================= -->
+    <link rel="stylesheet" href="{% static 'css/linearicons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font_awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+
+<body>
+
+    <!-- Start Header Area -->
+    <header class="default-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'img/logo.png' %}" alt="">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-end align-items-center"
+                    id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/addblog/">Add Blog</a></li>
+                        {% if user.is_authenticated %}
+                        <li><a href="{% url 'myblogs' %}">My Blog</a></li>
+                        <li><a href="{% url 'myprofile' %}">My Profile</a></li>
+                        {% endif %}
+                        <!-- <li><a href="#travel">Travel</a></li>
+                        <li><a href="#fashion">fashion</a></li>
+                        <li><a href="#team">team</a></li> -->
+                        <!-- Dropdown -->
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                Catagories
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="max-height: 120px; overflow-y: auto;">
+                                <a class="dropdown-item" href="/">All Blogs</a>
+                                {% for cat in catagory %}
+                                <a class="dropdown-item" href="/?catagory={{cat.id}}">{{cat.name}}</a>
+                                {% endfor %}
+                            </div>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li><a class="btn btn-outline-danger p-1 m-0 pr-2 pl-2" href="{% url 'logout' %}"
+                                style="color: black;">Log Out</a></li>
+                        {% else %}
+                        <li><a class="btn btn-outline-success p-1 m-0 pr-2 pl-2" href="{% url 'login' %}"
+                                style="color: black;">Log In</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- End Header Area -->
+
+    {% block content %}
+    {% endblock content %}
+
+    <!-- start footer Area -->
+    <footer class="footer-area section-gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3  col-md-12">
+                    <div class="single-footer-widget">
+                        <!-- <h6>Top Products</h6>
+                        <ul class="footer-nav">
+                            <li><a href="#">Managed Website</a></li>
+                            <li><a href="#">Manage Reputation</a></li>
+                            <li><a href="#">Power Tools</a></li>
+                            <li><a href="#">Marketing Service</a></li>
+                        </ul> -->
+                    </div>
+                </div>
+                <div class="col-lg-6  col-md-12">
+                    <div class="single-footer-widget newsletter">
+                        <h6>Subscribe Us</h6>
+                        <p>You can trust us. we only know how many people like this project</p>
+                        <div>
+                            {% block form %}
+                                
+                            {% endblock form %}
+                                <div class="info"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3  col-md-12">
+                    <div class="single-footer-widget mail-chimp">
+                        <!-- <h6 class="mb-20">Instragram Feed</h6>
+                        <ul class="instafeed d-flex flex-wrap">
+                            <li><img src="{% static 'img/i1.jpg' %}" alt=""></li>
+                            <li><img src="{% static 'img/i2.jpg' %}" alt=""></li>
+                            <li><img src="{% static 'img/i3.jpg' %}" alt=""></li>
+                            <li><img src="{% static 'img/i4.jpg' %}" alt=""></li>
+                            <li><img src="{% static 'img/i5.jpg' %}" alt=""></li>
+                            <li><img src="{% static 'img/i6.jpg' %}" alt=""></li>
+                            <li><img src="{% static 'img/i7.jpg' %}" alt=""></li>
+                            <li><img src="{% static 'img/i8.jpg' %}" alt=""></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row footer-bottom d-flex justify-content-between">
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <p class="col-lg-8 col-sm-12 footer-text">
+                    <!-- <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
+                    made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                        target="_blank">Colorlib</a> -->
+                </p>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                <div class="col-lg-4 col-sm-12 footer-social">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                    <a href="#"><i class="fa fa-behance"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End footer Area -->
+
+    <script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+    <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'js/parallax.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'js/jquery.sticky.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
