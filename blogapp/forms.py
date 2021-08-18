@@ -30,7 +30,7 @@ class AddBlogForm(forms.ModelForm):
         
     class Meta:
         model = Blog
-        fields = ['title' , 'content'  , 'catagory' , 'image']
+        fields = ['title' ,'content'  , 'catagory' , 'image']
         
     
         

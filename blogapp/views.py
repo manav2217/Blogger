@@ -121,6 +121,8 @@ def addblog(request):
         if request.method == "POST":
             form = AddBlogForm(request.POST)
             if form.is_valid():
+                blog = form.save(commit=False)
+                blog.author = User.objects.get(pk=request.user.id)
                 form.save()
                 messages.success(request , "Your blog is awaiting moderation")
                 return redirect('index')
