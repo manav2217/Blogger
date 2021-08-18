@@ -32,12 +32,13 @@ urlpatterns = [
     path('', include("blogapp.urls")),
     path('froala_editor/', include('froala_editor.urls')),
     path('tinymce/', include('tinymce.urls')),
+    re_path(r'^media(?P<path>.*)$' , serve , {'document_root':settings.MEDIA_ROOT}),
 
 
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+                            document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL,
-                          document_root=settings.STATIC_ROOT)
+                          document_root=settings.STATICFILES_DIRS)
