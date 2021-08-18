@@ -67,9 +67,11 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="max-height: 120px; overflow-y: auto;">
                                 <a class="dropdown-item" href="/">All Blogs</a>
+                                {% if catagory %}
                                 {% for cat in catagory %}
                                 <a class="dropdown-item" href="/?catagory={{cat.id}}">{{cat.name}}</a>
                                 {% endfor %}
+                                {% endif %}
                             </div>
                         </li>
                         {% if user.is_authenticated %}
