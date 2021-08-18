@@ -4,11 +4,19 @@
 {% block content %}
 {% load widget_tweaks %}
 
+{% if messages %}
+  {% for msg in messages %}
+    <div class="alert alert-info" role="alert">
+      <strong>{{msg}}</strong>
+    </div>
+  {% endfor %}
+{% endif %}
 
 <div class="container mt-4 mb-4 p-4">
   <div class="row justify-content-center">
     <div class="col">
-      <form method="POST" class="form-control" enctype="multipart/form-data">{% csrf_token %}
+      <form method="POST" class="form-control" action="{% url 'addblog' %}" enctype="multipart/form-data">
+        {% csrf_token%}
         <div class="mb-3">
           <label class="form-label">Blog Title</label>
           {{form.title|add_class:"form-control"}}
@@ -37,18 +45,18 @@
 {% endblock content %}
 
 {% block form %}
-<form action="{% url 'index' %}" method="POST" novalidate> 
-	{% csrf_token %}
-	<div class="form-group row" style="width: 100%">
-		<div class="col-lg-8 col-md-12">
-			<input hidden name="email" placeholder="Enter Email" required="" type="email">
-			{{sub_form.sub_email.label}}
-			{{sub_form.sub_email}}
-		</div>
-		<div class="col-lg-4 col-md-12">
-			<br>
-			<button class="nw-btn primary-btn" type="submit"> Subscribe<span class="lnr lnr-arrow-right"></span></button>
-		</div>
-	</div>
+<form action="{% url 'index' %}" method="POST" novalidate>
+  {% csrf_token %}
+  <div class="form-group row" style="width: 100%">
+    <div class="col-lg-8 col-md-12">
+      <input hidden name="email" placeholder="Enter Email" required="" type="email">
+      {{sub_form.sub_email.label}}
+      {{sub_form.sub_email}}
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <br>
+      <button class="nw-btn primary-btn" type="submit"> Subscribe<span class="lnr lnr-arrow-right"></span></button>
+    </div>
+  </div>
 </form>
 {% endblock form %}

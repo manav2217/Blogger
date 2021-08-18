@@ -102,19 +102,37 @@ class Login(LoginView):
 class Logout(LogoutView):
     success_url_allowed_hosts = 'index.html'
    
-class AddBlog(LoginRequiredMixin , CreateView):
-    def form_valid(self, AddBlogForm):
-        new_blog = AddBlogForm.save(commit=False)
-        new_blog.author = self.request.user
-        new_blog.created_on = datetime.today()
-        new_blog.save()
-        messages.success(self.request , f"Your blog is awaiting moderation")
-        return super(AddBlog , self).form_valid(AddBlogForm)
+# class AddBlog(LoginRequiredMixin , CreateView):
+#     def form_valid(self, AddBlogForm):
+#         new_blog = AddBlogForm.save(commit=False)
+#         new_blog.author = self.request.user
+#         new_blog.created_on = datetime.today()
+#         new_blog.save()
+#         messages.success(self.request , f"Your blog is awaiting moderation")
+#         return super(AddBlog , self).form_valid(AddBlogForm)
     
-    model = Blog
-    fields = ['title' , 'content' , 'catagory' , 'image']
-    template_name = 'add-blog.html'
-    success_url = reverse_lazy('index')
+#     model = Blog
+#     fields = ['title' , 'content' , 'catagory' , 'image']
+#     template_name = 'add-blog.html'
+#     success_url = reverse_lazy('index')
+    
+def addblog(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form = AddBlogForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request , "Your blog is awaiting moderation")
+                return redirect('index')
+            else:
+                messages.error(request , form.errors)
+                return HttpResponseRedirect('/addblog/')
+        else:
+            form  = AddBlogForm()
+            return render(request , "add-blog.html" , {'form':form})
+    else:
+        messages.error(request , "Please login to see that page")
+        return redirect('login')
     
 def deleteblog(request , id):
     Blog.objects.get(id=id).delete()

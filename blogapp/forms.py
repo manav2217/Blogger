@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.views import generic
 from froala_editor.fields import FroalaEditor
 
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
@@ -24,11 +25,14 @@ class UpdateUserForm(UserChangeForm):
         model = User
         fields = ['email' , 'first_name' , 'last_name' ]
         
-class AddBlogForm(generic.CreateView):
+class AddBlogForm(forms.ModelForm):
     Blog.content = forms.CharField(widget=FroalaEditor)
+        
     class Meta:
         model = Blog
         fields = ['title' , 'content'  , 'catagory' , 'image']
+        
+    
         
 class SubscriberForm(forms.ModelForm):
     class Meta:

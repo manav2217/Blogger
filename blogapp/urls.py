@@ -26,7 +26,7 @@ urlpatterns = [
     path('editblog/<slug>/', EditBlogView.as_view() , name="editblog" ),
     path('myprofile/', myprofile , name="myprofile" ),
     path('logout/', Logout.as_view() , name="logout" ),  
-    path('addblog/', AddBlog.as_view() , name="addblog" ),  
+    path('addblog/', addblog , name="addblog" ),  
     path('<slug:slug>/', blog_detail , name="blog_detail" ),
     path('froala_editor/', include('froala_editor.urls')),
     path('tinymce/', include('tinymce.urls')),
