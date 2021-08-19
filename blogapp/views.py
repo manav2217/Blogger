@@ -143,7 +143,7 @@ def deleteblog(request , id):
 class EditBlogView(LoginRequiredMixin, PermissionRequiredMixin ,generic.UpdateView):
     permission_required = 'blog.change_blog'
     model = Blog
-    fields = ['title' , 'catagory' , 'content' , 'image']
+    fields = ['title' , 'catagory' , 'content' , 'image' , 'status']
     success_url = reverse_lazy('index')
     template_name = "editblog.html"
 

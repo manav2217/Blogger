@@ -37,7 +37,7 @@
 					<div class="user-meta">
 
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -65,23 +65,21 @@
 			{% if blog_list %}
 			{% for post in blog_list %}
 			{% if post.status == 1 %}
-			<div class="col-lg-3 col-md-6 single-fashion">
+			<div class="col-lg-3 col-md-6 single-fashion" style="border: none;">
 				{% if post.image %}
 				<a href="{% url  'blog_detail' post.slug %}"><img class="img-fluid" src="{{post.image.url}}"
 						alt="image"></a>
 				{% else %}
-				<a href="{% url  'blog_detail' post.slug %}"><img class="img-fluid" src=""
-					alt="image"></a>
+				<a href="{% url  'blog_detail' post.slug %}"><img class="img-fluid" src="" alt="image"></a>
 				{% endif %}
-				<p class="date">{{post.created_on|date}}</p>
-				<h4><a href="{% url 'blog_detail' post.slug %}">{{post.title}}</a></h4>
-				<p>
-					{{post.content|slice:":100" | safe}}...
-				</p>
-				<div class="meta-bottom d-flex justify-content-between">
-					<!-- <p><span class="lnr lnr-heart"></span> 15 Lipokes</p> -->
-					<p><span class="lnr lnr-bubble"></span> &nbsp;{{post.comments.count}}</p>
+				<div class="body-body">
+					<p class="date">{{post.created_on|date}}</p>
+					<h4><a href="{% url 'blog_detail' post.slug %}">{{post.title}}</a></h4>
+					<div class="meta-bottom d-flex justify-content-between">
+						<p><span class="lnr lnr-bubble"></span> &nbsp;{{post.comments.count}}</p>
+					</div>
 				</div>
+				<a href="{% url  'blog_detail' post.slug %}" class="btn btn-outline-dark">Read full Blog</a>
 			</div>
 			{% endif %}
 			{% endfor %}
@@ -98,7 +96,7 @@
 {% endblock content %}
 
 {% block form %}
-<form action="{% url 'index' %}" method="POST" novalidate> 
+<form action="{% url 'index' %}" method="POST" novalidate>
 	{% csrf_token %}
 	<div class="form-group row" style="width: 100%">
 		<div class="col-lg-8 col-md-12">
@@ -108,7 +106,8 @@
 		</div>
 		<div class="col-lg-4 col-md-12">
 			<br>
-			<button class="nw-btn primary-btn" type="submit"> Subscribe<span class="lnr lnr-arrow-right"></span></button>
+			<button class="nw-btn primary-btn" type="submit"> Subscribe<span
+					class="lnr lnr-arrow-right"></span></button>
 		</div>
 	</div>
 </form>
