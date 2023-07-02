@@ -93,8 +93,12 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'blogger',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -160,8 +164,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = "587"
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "manavprajapati2217@gmail.com"
-EMAIL_HOST_PASSWORD = "oqnbmmxalrlbston"
+EMAIL_HOST_USER = "manavprajapati2001@gmail.com"
+EMAIL_HOST_PASSWORD = "lmxibjkizevlfyxv"
 
 django_heroku.settings(locals())
 

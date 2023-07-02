@@ -119,10 +119,14 @@ class Logout(LogoutView):
 def addblog(request):
     if request.user.is_authenticated:
         if request.method == "POST":
-            form = AddBlogForm(request.POST)
+            print(request.POST)
+            form = AddBlogForm(request.POST, request.FILES)
             if form.is_valid():
+                print(request.POST)
+                # blog.image = request.POST.image
                 blog = form.save(commit=False)
                 blog.author = User.objects.get(pk=request.user.id)
+                print(form)
                 form.save()
                 messages.success(request , "Your blog is awaiting moderation")
                 return redirect('index')
